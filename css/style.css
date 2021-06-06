@@ -1,0 +1,38 @@
+img{
+    width: 400px;
+    height: 400px;
+  }
+  img{
+    margin-left: 20px;
+  }
+  div{
+   padding-left: 150px;
+  }
+  
+  body{
+    background-color: whitesmoke;
+  }
+  
+  p{
+    font-size: 150%;
+    font-weight: bolder;
+    margin: 50px 50px 50px 0px;
+    text-align: center;
+    color: rgba(158, 76, 251, 0.575);
+    font-family: 'Odibee Sans', cursive;
+  }
+  
+  ul{
+    margin-top: 50px;
+  }
+  
+  li{
+    margin-top: 10px;
+    list-style-type: none;
+    color: black;
+    
+    
+font-family: 'Quicksand', sans-serif;
+font-family: 'Sigmar One', cursive;
+
+  }
