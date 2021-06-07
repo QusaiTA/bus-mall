@@ -1,12 +1,13 @@
 'use strict';
 
-//geting images by id's ..
+//geting images,container,button by id's ..
 let handler = document.getElementById('container');
 let leftImgElement = document.getElementById('leftImg');
 let middleImgElement = document.getElementById('middleImg');
 let rightImgElement = document.getElementById('rightImg');
 let btn = document.getElementById('btn');
 
+//declare user tries, and max tries ..
 let maxAttempts = 25;
 let userAttemptsCounter = 0;
 
@@ -16,7 +17,7 @@ let leftImgIndex;
 let middleImgIndex;
 let rightImgIndex;
 
-// declearing vote, shown arrays ..
+// declearing vote, shown arrays, and products name for the chart .
 let vote = [];
 let shown = [];
 let productsName = [];
@@ -35,6 +36,8 @@ function products(name, source) {
 }
 
 products.allProducts = [];
+
+// create all instances ..
 
 new products('bag', 'img/bag.jpg');
 new products('banana', 'img/banana.jpg');
@@ -80,14 +83,7 @@ function renderProducts() {
   middleImgIndex = generateRandomIndex();
   rightImgIndex = generateRandomIndex();
 
-
-
-
-
-
-
-
-  // comparing images index and apperance in next itteration ..
+ // comparing images index and apperance in next itteration ..
   while (leftImgIndex === middleImgIndex || leftImgIndex === rightImgIndex || middleImgIndex === rightImgIndex || stopNextItteration.includes(leftImgIndex) || stopNextItteration.includes(middleImgIndex) || stopNextItteration.includes(rightImgIndex)) {
     leftImgIndex = generateRandomIndex();
     rightImgIndex = generateRandomIndex();
@@ -99,6 +95,7 @@ function renderProducts() {
 
   console.log(stopNextItteration);
 
+  // adding source to all images ..
 
   leftImgElement.src = products.allProducts[leftImgIndex].source;
   products.allProducts[leftImgIndex].timesShown++;
@@ -110,29 +107,11 @@ function renderProducts() {
 
   rightImgElement.src = products.allProducts[rightImgIndex].source;
   products.allProducts[rightImgIndex].timesShown++;
-
-
-
-
 }
 
 
-
+// invoke render function .. 
 renderProducts();
-function check() {
-
-
-  for (let i = 0; i < products.allProducts.length; i++) {
-    let finalResult = document.getElementById('results');
-    let item = document.createElement('li');
-    finalResult.appendChild(item);
-    item.textContent = `${products.allProducts[i].name}  had - ${products.allProducts[i].votes}  votes // and  was seen ${products.allProducts[i].timesShown} -  time`;
-    btn.removeEventListener('click', check);
-    btn.hidden=true;
-
-  }
-}
-
 
 // going throgh events ..
 handler.addEventListener('click', userClicks);
@@ -161,13 +140,9 @@ function userClicks(event) {
 
   }
 
-
-
-
-
-
-  else {
+    else {
     handler.removeEventListener('click', userClicks);
+    
     btn.hidden=false;
 
     for (let i = 0; i < products.allProducts.length; i++) {
@@ -175,17 +150,28 @@ function userClicks(event) {
       shown.push(products.allProducts[i].timesShown);
 
     }
-
+    //invoke chart that i have linked to the html file 
     chart();
 
-
+   
     btn.addEventListener('click', check);
+    btn.hidden=false;
+    function check() {
 
+
+      for (let i = 0; i < products.allProducts.length; i++) {
+        let finalResult = document.getElementById('results');
+        let item = document.createElement('li');
+        finalResult.appendChild(item);
+        item.textContent = `${products.allProducts[i].name}  had - ${products.allProducts[i].votes}  votes // and  was seen ${products.allProducts[i].timesShown} -  time`;
+      }
+        btn.removeEventListener('click', check);
+        btn.hidden=true;
+    }
+    
 
   }
 }
-
-
 
 function chart() {
   let ctx = document.getElementById('myChart');
