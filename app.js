@@ -72,22 +72,23 @@ function generateRandomIndex() {
     rightImgIndex=generateRandomIndex();
      
      // comparing images index
-    while( leftImgIndex === middleImgIndex || leftImgIndex === rightImgIndex || rightImgIndex == leftImgIndex || rightImgIndex == middleImgIndex || middleImgIndex == leftImgIndex || middleImgIndex == rightImgIndex){
-        leftImgIndex = generateRandomIndex();
-        middleImgIndex = generateRandomIndex();
+    while( leftImgIndex === middleImgIndex || leftImgIndex === rightImgIndex || middleImgIndex == rightImgIndex){
+        
         rightImgIndex = generateRandomIndex();
+        middleImgIndex = generateRandomIndex();
+        
         }
       
-    // increasing time shown
-    products.allProducts[leftImgIndex].timesShown++;
-    products.allProducts[middleImgIndex].timesShown++;
-    products.allProducts[rightImgIndex].timesShown++; 
-
-    // adding the image source
+    // adding the image source and increasing shown time ..
 
     leftImgElement.src = products.allProducts[leftImgIndex].source;
+    products.allProducts[leftImgIndex].timesShown++;
+
     middleImgElement.src = products.allProducts[middleImgIndex].source;
+    products.allProducts[middleImgIndex].timesShown++;
+
     rightImgElement.src = products.allProducts[rightImgIndex].source;
+    products.allProducts[rightImgIndex].timesShown++; 
 }
   
 
