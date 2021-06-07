@@ -120,7 +120,7 @@ function userClicks(event){
            for(let i = 0 ; i < products.allProducts.length ; i++){
         let item = document.createElement('li');
         finalResult.appendChild(item);
-        item.textContent = `${products.allProducts[i].name}  has - ${products.allProducts[i].votes}  votes // and   ${products.allProducts[i].timesShown} -  time shown`;
+        item.textContent = `${products.allProducts[i].name}  had - ${products.allProducts[i].votes}  votes // and  was seen ${products.allProducts[i].timesShown} -  time`;
         btn.removeEventListener('click',check);
       
     }}

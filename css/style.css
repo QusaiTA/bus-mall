@@ -36,3 +36,10 @@ font-family: 'Quicksand', sans-serif;
 font-family: 'Sigmar One', cursive;
 
   }
+
+  #btn{
+      background-color: rgba(158, 76, 251, 0.575);
+      font-weight: bold;
+
+
+  }
