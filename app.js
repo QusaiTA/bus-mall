@@ -21,6 +21,7 @@ let rightImgIndex;
 let vote = [];
 let shown = [];
 let productsName = [];
+products.allProducts = [];
 
 //create function constructer
 
@@ -35,7 +36,45 @@ function products(name, source) {
 
 }
 
-products.allProducts = [];
+
+
+// create a function to update storage .. 
+
+function updateStorage(){
+
+  let arrayString = JSON.stringify(products.allProducts);
+  
+
+  localStorage.setItem('Products', arrayString);
+  console.log(arrayString); 
+
+}
+
+// create a function to get the data from local storage ..
+
+function getproducts (){
+
+   
+  let data = localStorage.getItem('Products');
+
+  let productsData = JSON.parse(data);
+  console.log(productsData);
+
+  if(productsData !== null){
+
+    products.allProducts = productsData;
+    
+    }
+   
+
+}
+
+// invoke get products function from local storage .. 
+
+
+
+
+
 
 // create all instances ..
 
@@ -76,6 +115,7 @@ function generateRandomIndex() {
 //declear an array to stop reload the same image at next itteration ..
 let stopNextItteration = [];
 
+
 //create a render function ..
 function renderProducts() {
 
@@ -84,14 +124,15 @@ function renderProducts() {
   rightImgIndex = generateRandomIndex();
 
  // comparing images index and apperance in next itteration ..
-  while (leftImgIndex === middleImgIndex || leftImgIndex === rightImgIndex || middleImgIndex === rightImgIndex || stopNextItteration.includes(leftImgIndex) || stopNextItteration.includes(middleImgIndex) || stopNextItteration.includes(rightImgIndex)) {
+  while ((leftImgIndex === middleImgIndex || leftImgIndex === rightImgIndex || middleImgIndex === rightImgIndex) || (stopNextItteration.includes(leftImgIndex) || stopNextItteration.includes(middleImgIndex) || stopNextItteration.includes(rightImgIndex))) {
     leftImgIndex = generateRandomIndex();
-    rightImgIndex = generateRandomIndex();
     middleImgIndex = generateRandomIndex();
+    rightImgIndex = generateRandomIndex();
+   
 
   }
   stopNextItteration = [leftImgIndex, middleImgIndex, rightImgIndex];
-
+  
 
   console.log(stopNextItteration);
 
@@ -107,6 +148,7 @@ function renderProducts() {
 
   rightImgElement.src = products.allProducts[rightImgIndex].source;
   products.allProducts[rightImgIndex].timesShown++;
+  
 }
 
 
@@ -123,6 +165,7 @@ function userClicks(event) {
     // console.log(userAttemptsCounter);
     if (event.target.id === 'leftImg') {
       products.allProducts[leftImgIndex].votes++;
+      
 
     } else if (event.target.id === 'middleImg') {
       products.allProducts[middleImgIndex].votes++;
@@ -144,13 +187,17 @@ function userClicks(event) {
     handler.removeEventListener('click', userClicks);
     
     btn.hidden=false;
-
+    
     for (let i = 0; i < products.allProducts.length; i++) {
       vote.push(products.allProducts[i].votes);
       shown.push(products.allProducts[i].timesShown);
 
+      // invoke update storage function to save data in local storage ..
+     // updateStorage();
     }
+    
     //invoke chart that i have linked to the html file 
+    updateStorage();
     chart();
 
    
@@ -172,6 +219,7 @@ function userClicks(event) {
 
   }
 }
+
 
 function chart() {
   let ctx = document.getElementById('myChart');
@@ -234,3 +282,4 @@ function chart() {
 
 }
 
+getproducts();
